@@ -1,0 +1,19 @@
+#!/bin/sh
+
+mkdir -p /var/db/tang/
+
+if ! getent group | grep -q '^tang:'; then
+    addgroup -S tang
+fi
+if ! getent passwd | grep -q '^tang:'; then
+    adduser -S -D -H -s /bin/false -G tang -g tang tang
+fi
+
+if [ -e /bin/tangd ] && ! ls -l /bin/tangd | grep -q '/libexec/tangd$'; then
+    rm -f /bin/tangd
+fi
+if ! [ -e /bin/tangd ]; then
+    ln -s /libexec/tangd /bin/tangd
+fi
+
+exit 0

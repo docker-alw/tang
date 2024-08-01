@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if ! rmdir /var/db/tang/; then
+    echo "/var/db/tang/ is not empty, skipping removal."
+fi
+
+if getent passwd | grep -q '^tang:'; then
+    deluser --remove-home tang
+fi
+if getent group | grep -q '^tang:'; then
+    delgroup tang
+fi
+
+if [ -e /bin/tangd ]; then
+    rm -f /bin/tangd
+fi
+
+exit 0
