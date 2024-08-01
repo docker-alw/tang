@@ -1,0 +1,26 @@
+---
+# yamllint disable rule:line-length
+name: "Build Main Image"
+
+"on":
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+    paths:
+      - .github/workflows/build_image.yml
+      - Dockerfile
+      - test.sh
+      - cache.conf
+      - php-fpm.conf
+  workflow_dispatch:
+  schedule:
+    - cron: '43 10 5 * *'
+
+jobs:
+  build-push:
+    name: Build-Push
+    permissions:
+      actions: read
+      packages: write
+    uses: docker-alw/workflows/.github/workflows/build_image.yml@v0

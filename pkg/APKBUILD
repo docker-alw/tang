@@ -1,0 +1,42 @@
+# shellcheck disable=SC2034
+# Maintainer: Andrwe Lord Weber <alw@andrwe.org>
+pkgname=tang
+pkgver="${VERSION}"
+pkgrel="${PKGVERSION}"
+pkgdesc="Tang is a server for binding data to network presence."
+url="https://github.com/latchset/tang.git"
+arch="all"
+license="GPL"
+depends="curl"
+depends_dev="asciidoc gcc iproute2-ss jose jose-dev llhttp-dev meson musl-dev socat"
+makedepends="$depends_dev"
+install="$pkgname.post-install $pkgname.post-deinstall"
+subpackages=""
+source="https://github.com/latchset/${pkgname}/releases/download/v${pkgver}/${pkgname}-${pkgver}.tar.xz"
+# shellcheck disable=SC2154
+builddir="${srcdir}/${pkgname}-${pkgver}"
+
+prepare() {
+        mkdir -p "${srcdir}/${pkgname}-${pkgver}/build"
+}
+
+build() {
+        cd "${srcdir}/${pkgname}-${pkgver}/build" || return 1
+        # shellcheck disable=SC2154
+        meson setup .. --prefix="${pkgdir}"
+        ninja
+}
+
+check() {
+        cd "${srcdir}/${pkgname}-${pkgver}/build" || return 1
+        meson test
+}
+
+package() {
+        cd "${srcdir}/${pkgname}-${pkgver}/build" || return 1
+        ninja install
+}
+
+sha512sums="
+789ff880f7b007c4c28f764d1bca619e11d485ac276417fc656074db05d81bbd39dd91cfef9e30452e5ac135506bc8501963a9bc3f85654a78a23ff9d1bd5e02  tang-15.tar.xz
+"
