@@ -14,7 +14,7 @@ repos:
       - id: destroyed-symlinks
       - id: check-executables-have-shebangs
   - repo: https://github.com/sirosen/check-jsonschema
-    rev: 0.29.2
+    rev: 0.29.3
     hooks:
       - id: check-github-workflows
       - id: check-github-actions
