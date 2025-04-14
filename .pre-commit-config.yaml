@@ -14,7 +14,7 @@ repos:
       - id: destroyed-symlinks
       - id: check-executables-have-shebangs
   - repo: https://github.com/sirosen/check-jsonschema
-    rev: 0.31.1
+    rev: 0.33.0
     hooks:
       - id: check-github-workflows
       - id: check-github-actions
@@ -37,7 +37,7 @@ repos:
       - id: shellcheck
         files: 'pkg/tang\..*install|pkg/APKBUILD|.*\.sh'
   - repo: https://github.com/maxwinterstein/shfmt-py
-    rev: v3.7.0.1
+    rev: v3.11.0.2
     hooks:
       - id: shfmt
         args:
