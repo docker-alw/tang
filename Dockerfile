@@ -33,6 +33,7 @@ RUN adduser -g build -D build \
         && chgrp abuild /var/cache/distfiles /app \
         && chmod g+w /var/cache/distfiles /app
 
+# hadolint ignore=DL3066
 USER build
 WORKDIR /app
 
@@ -61,6 +62,7 @@ VOLUME /var/db/tang
 
 EXPOSE 9090
 
+# hadolint ignore=DL3066
 USER tang
 
 ENTRYPOINT ["/bin/tangd"]
