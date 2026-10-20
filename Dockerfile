@@ -56,7 +56,8 @@ ARG PKGVERSION=0
 COPY test.sh /test.sh
 COPY --from=builder /home/build/packages/*/tang-${VERSION}-r${PKGVERSION}.apk /var/cache/tang-${VERSION}-r${PKGVERSION}.apk
 
-RUN apk --no-cache add --allow-untrusted "/var/cache/tang-${VERSION}-r${PKGVERSION}.apk"
+RUN apk --no-cache add --allow-untrusted "/var/cache/tang-${VERSION}-r${PKGVERSION}.apk" \
+    && apk --no-cache upgrade
 
 VOLUME /var/db/tang
 
